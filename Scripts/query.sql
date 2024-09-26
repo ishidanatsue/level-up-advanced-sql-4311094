@@ -1,11 +1,15 @@
 SELECT sql
 FROM sqlite_schema
-WHERE name = 'employee';
+WHERE name = 'sales';
 
-SELECT * FROM employee
-LIMIT 5;
+SELECT * FROM sales
+ORDER BY employeeId;
 
-SELECT e.firstName, e.lastName, e.title, m.firstName as ManagerFirstName, m.lastName as ManagerLastName
-FROM  employee e
-JOIN employee m 
-ON e.managerId = m.employeeId;
+SELECT e.firstName, e.lastName, e.title, sls.salesId, e.employeeId
+FROM employee e
+LEFT JOIN sales sls 
+ON e.employeeId = sls.employeeId
+WHERE e.title = 'Sales Person'
+AND sls.salesId IS NULL;
+
+
